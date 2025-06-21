@@ -1,0 +1,141 @@
+<!-- admin.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Clinic</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    .badge-priority-normal { background-color: #6c757d; }
+    .badge-priority-elderly { background-color: #ffc107; }
+    .badge-priority-chronic { background-color: #0dcaf0; }
+    .badge-priority-emergency { background-color: #dc3545; }
+  </style>
+</head>
+<body class="bg-light">
+  <div class="bg-primary text-white py-3 mb-4">
+    <div class="container">
+      <h1 class="h4 mb-0"><i class="bi bi-bar-chart me-2"></i>Admin Dashboard - Clinic Management</h1>
+      <p class="mb-0 opacity-75">Manage appointments and monitor clinic activity</p>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-lg-3 mb-4">
+        <div class="card mb-4">
+          <div class="card-header"><i class="bi bi-people-fill me-2"></i>Quick Stats</div>
+          <div class="card-body">
+            <div class="row text-center">
+              <div class="col-6"><div class="h5 text-warning">3</div><small>Waiting</small></div>
+              <div class="col-6"><div class="h5 text-success">2</div><small>Arrived</small></div>
+              <div class="col-6"><div class="h5 text-primary">1</div><small>In Progress</small></div>
+              <div class="col-6"><div class="h5 text-info">8</div><small>Total Today</small></div>
+            </div>
+          </div>
+        </div>
+        <div class="card mb-4">
+          <div class="card-header"><i class="bi bi-clock-fill me-2"></i>Bookings by Time Slot</div>
+          <div class="card-body">
+            <div class="d-flex justify-content-between mb-2"><span>8:00</span><span class="badge bg-primary">2</span></div>
+            <div class="d-flex justify-content-between mb-2"><span>9:00</span><span class="badge bg-primary">2</span></div>
+            <div class="d-flex justify-content-between mb-2"><span>10:00</span><span class="badge bg-primary">2</span></div>
+            <div class="d-flex justify-content-between mb-2"><span>11:00</span><span class="badge bg-primary">2</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><i class="bi bi-bar-chart-line-fill me-2"></i>Appointments per Hour</div>
+          <div class="card-body">
+            <canvas id="appointmentsChart" height="250"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="col-lg-9">
+        <div class="card">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0"><i class="bi bi-calendar-week me-2"></i>Today's Appointments</h5>
+            <span class="badge bg-info">8 appointments</span>
+          </div>
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead class="table-light">
+                  <tr>
+                    <th>Token</th>
+                    <th>Name</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                    <th>Priority</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="badge bg-dark">A001</span></td>
+                    <td>John Smith<br/><small class="text-muted">555-0123</small></td>
+                    <td>8:00 AM</td>
+                    <td><span class="text-warning"><i class="bi bi-clock"></i> Waiting</span></td>
+                    <td><span class="badge badge-priority-normal">Normal</span></td>
+                    <td><button class="btn btn-sm btn-outline-success"><i class="bi bi-check-circle"></i></button></td>
+                  </tr>
+                  <tr>
+                    <td><span class="badge bg-dark">A002</span></td>
+                    <td>Mary Johnson<br/><small class="text-muted">555-0124</small></td>
+                    <td>8:30 AM</td>
+                    <td><span class="text-success"><i class="bi bi-check-circle-fill"></i> Arrived</span></td>
+                    <td><span class="badge badge-priority-elderly">Elderly</span></td>
+                    <td><button class="btn btn-sm btn-outline-primary"><i class="bi bi-activity"></i></button></td>
+                  </tr>
+                  <!-- Add additional rows as needed -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const ctx = document.getElementById('appointmentsChart');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['8:00', '9:00', '10:00', '11:00'],
+        datasets: [{
+          label: 'Appointments per Hour',
+          data: [2, 2, 2, 2],
+          backgroundColor: 'rgba(54, 162, 235, 0.8)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top'
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
