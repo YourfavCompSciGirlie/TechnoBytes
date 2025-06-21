@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartPHC - Smarter Clinic Appointments</title>
+    <style>
+        /* CSS Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #2563eb;
+            --secondary: #10b981;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #94a3b8;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: white;
+            color: var(--primary);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        /* Stats Section */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            background-color: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            min-width: 200px;
+        }
+        
+        /* How It Works Section */
+        .section-title {
+            text-align: center;
+            margin: 3rem 0 1.5rem;
+            font-size: 2rem;
+            color: var(--dark);
+        }
+        
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            gap: 2rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            padding: 1.5rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .step:hover {
+            transform: translateY(-10px);
+        }
+        
+        .step-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        /* Benefits Section */
+        .benefits {
+            background-color: white;
+            padding: 3rem;
+            border-radius: 15px;
+            margin: 3rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .benefit-column h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--gray);
+        }
+        
+        .benefit-item {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .benefit-item::before {
+            content: "✓";
+            color: var(--secondary);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        
+        /* USSD Section */
+        .ussd-section {
+            background: linear-gradient(135deg, var(--dark), #334155);
+            color: white;
+            padding: 3rem;
+            border-radius: 15px;
+            text-align: center;
+            margin: 3rem 0;
+        }
+        
+        .ussd-code {
+            background-color: white;
+            color: var(--dark);
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-family: monospace;
+            font-size: 1.5rem;
+            margin: 1rem 0;
+            font-weight: bold;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            padding: 1rem 0;
+            scroll-snap-type: x mandatory;
+        }
+        
+        .testimonial {
+            min-width: 300px;
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            scroll-snap-align: start;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        
+        .testimonial-author {
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .testimonial-rating {
+            color: gold;
+            margin-top: 0.5rem;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            margin: 4rem 0;
+        }
+        
+        .cta-buttons {
+            margin-top: 2rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .partners {
+            margin: 2rem 0;
+        }
+        
+        .partner-logos {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .partner-logos img {
+            height: 40px;
+            filter: brightness(0) invert(1);
+            opacity: 0.8;
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .steps {
+                flex-direction: column;
+            }
+            
+            .btn {
+                display: block;
+                margin: 10px auto;
+                max-width: 200px;
+            }
+            
+            .benefits {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header/Hero Section -->
+    <header>
+        <div class="container">
+            <div class="logo">SmartPHC</div>
+            <p class="tagline">Skip the Wait! Book Your PHC Clinic Visit Online</p>
+            <p>Get real-time slots, live queue updates, and SMS reminders—all in one place.</p>
+            <div style="margin-top: 2rem;">
+                <a href="#book" class="btn">Book Now</a>
+                <a href="#how-it-works" class="btn btn-secondary">Learn How It Works</a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Stats Section -->
+    <div class="container">
+        <div class="stats">
+            <div class="stat-item">
+                <h3>50+</h3>
+                <p>Clinics in Tshwane</p>
+            </div>
+            <div class="stat-item">
+                <h3>70%</h3>
+                <p>Reduced Wait Times</p>
+            </div>
+            <div class="stat-item">
+                <h3>10,000+</h3>
+                <p>Patients Served</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- How It Works Section -->
+    <div class="container">
+        <h2 id="how-it-works" class="section-title">How It Works</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-icon">📅</div>
+                <h3>Book in Seconds</h3>
+                <p>Choose clinic, date, and time. Priority for emergencies.</p>
+            </div>
+            <div class="step">
+                <div class="step-icon">📲</div>
+                <h3>Get Live Alerts</h3>
+                <p>SMS/WhatsApp updates on your queue status.</p>
+            </div>
+            <div class="step">
+                <div class="step-icon">🏥</div>
+                <h3>Walk In & Get Served</h3>
+                <p>No more guessing—know your exact wait time.</p>
+            </div>
+        </div>
+        <div style="text-align: center; margin: 2rem 0;">
+            <a href="#" class="btn btn-secondary">Watch Demo Video</a>
+        </div>
+    </div>
+    
+    <!-- Benefits Section -->
+    <div class="container">
+        <div class="benefits">
+            <h2 class="section-title">Why SmartPHC?</h2>
+            <div class="benefits-grid">
+                <div class="benefit-column">
+                    <h3>For Patients</h3>
+                    <div class="benefit-item">No more 5 AM queues</div>
+                    <div class="benefit-item">Real-time wait updates</div>
+                    <div class="benefit-item">Book via app/SMS/USSD</div>
+                    <div class="benefit-item">Emergency priority slots</div>
+                </div>
+                <div class="benefit-column">
+                    <h3>For Clinics</h3>
+                    <div class="benefit-item">Optimized staff workload</div>
+                    <div class="benefit-item">Fewer no-shows</div>
+                    <div class="benefit-item">Data-driven scheduling</div>
+                    <div class="benefit-item">Reduced overcrowding</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- USSD Section -->
+    <div class="container">
+        <div class="ussd-section">
+            <h2>No Smartphone? No Problem!</h2>
+            <p>Text <span class="ussd-code">*123*1#</span> to book your appointment via USSD</p>
+            <p>Works on all mobile phones - no internet needed</p>
+        </div>
+    </div>
+    
+    <!-- Testimonials -->
+    <div class="container">
+        <h2 class="section-title">What People Are Saying</h2>
+        <div class="testimonials">
+            <div class="testimonial">
+                <p class="testimonial-text">"Used to wait 3+ hours—now I'm in and out in 30 mins!"</p>
+                <p class="testimonial-author">Thabo M., Soshanguve</p>
+                <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+            </div>
+            <div class="testimonial">
+                <p class="testimonial-text">"Our clinic runs smoother with 40% fewer overcrowding complaints."</p>
+                <p class="testimonial-author">Sister Ndlovu, Pretoria PHC</p>
+                <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+            </div>
+            <div class="testimonial">
+                <p class="testimonial-text">"The SMS reminders help me never miss my appointment."</p>
+                <p class="testimonial-author">Lerato K., Mamelodi</p>
+                <div class="testimonial-rating">⭐⭐⭐⭐</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- CTA Section -->
+    <div class="container">
+        <div class="cta-section">
+            <h2>Ready to Skip the Queue?</h2>
+            <p>Join thousands of patients getting faster healthcare access</p>
+            <div class="cta-buttons">
+                <a href="#book" class="btn">Book Your Visit Now</a>
+                <a href="#ussd" class="btn btn-secondary">Learn About USSD Booking</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="logo">SmartPHC</div>
+            <div class="footer-links">
+                <a href="#">Clinics List</a>
+                <a href="#">FAQ</a>
+                <a href="#">Contact</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms</a>
+            </div>
+            <div class="partners">
+                <h3>In Partnership With</h3>
+                <div class="partner-logos">
+                    <img src="https://via.placeholder.com/100x40?text=Tshwane+Health" alt="Tshwane Health Department">
+                    <img src="https://via.placeholder.com/100x40?text=SA+Gov" alt="South African Government">
+                    <img src="https://via.placeholder.com/100x40?text=Local+Clinics" alt="Local Clinics Network">
+                </div>
+            </div>
+            <div class="copyright">
+                © 2024 SmartPHC. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Simple JavaScript for demo purposes
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // Demo booking button action
+            document.querySelectorAll('.btn').forEach(button => {
+                if (button.getAttribute('href') === '#book') {
+                    button.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        alert('Booking system would open here! This is a demo.');
+                    });
+                }
+            });
+            
+            // Animate steps on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.step').forEach(step => {
+                step.style.opacity = 0;
+                step.style.transform = 'translateY(20px)';
+                step.style.transition = 'all 0.5s ease';
+                observer.observe(step);
+            });
+        });
+    </script>
+</body>
+</html>
