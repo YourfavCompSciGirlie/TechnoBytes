@@ -167,9 +167,7 @@ Ensure you have `.env` configured for Twilio, Gmail, and DB access.
 ## 📬 Contact
 
 **Team TechnoBytes**\
-📍 Tshwane | University of Pretoria\
-📧 [support@queuewise.co.za](mailto\:support@queuewise.co.za)\
-📱 +27 66 123 4567
+📍 Tshwane | SMU Digital Health Hackathon 2025\
 
 ---
 
